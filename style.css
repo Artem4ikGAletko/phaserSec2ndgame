@@ -1,0 +1,25 @@
+body {
+    margin: 0;
+    height: 100vh;           
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#game{
+    position: absolute;
+    z-index: -5;
+}
+
+#score{
+    position: fixed;
+    top: 100px;
+left: 100px;
+}
+
+#timer{
+    position: fixed;
+    top: 100px;
+left: 200px;
+}
