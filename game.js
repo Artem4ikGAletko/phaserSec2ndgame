@@ -34,6 +34,7 @@ function preload() {
     this.load.image('BigP', 'assets/BigP.png');
     this.load.image('RAm', 'assets/rampage.png');
     this.load.image('stone', 'assets/stone.png');
+    this.load.image('oxi', 'assets/oxi.png');
 
     this.load.spritesheet('dude',
         'assets/dude.png',
@@ -48,7 +49,7 @@ function preload() {
 }
 var platforms;
 var stones;
-
+var oxi;
 var player;
 
 function create() {
@@ -81,11 +82,8 @@ function create() {
 
         var y = Phaser.Math.FloatBetween(0, 1000)
         stone.create(x, y, 'stone').setScale(o).refreshBody();
-        
-
-        
-        
     }
+    
 
     // Створимо гравця
     player = this.physics.add.sprite(100, 450, 'dude');
@@ -118,14 +116,13 @@ function create() {
      this.cameras.main.setBounds(0, 0, worldWidth, 1080);
      this.physics.world.setBounds(0, 0, worldWidth, 1080);
  
- 
      //камера слідкує
      this.cameras.main.startFollow(player);
      // гравець
  
-//
+//ogogog
 
-
+oxi.create(150, 1008, 'oxi').setScale(1).refreshBody();
 
 
     // додамо платформи
