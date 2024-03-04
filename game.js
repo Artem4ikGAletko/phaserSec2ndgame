@@ -22,6 +22,7 @@ var TimerText;
 var worldWidth = 9600;
 var player
 
+
 function preload() {
     // завантажимо асети
     //this.load.image('sky', 'assets/sky.png');
@@ -34,7 +35,9 @@ function preload() {
     this.load.image('BigP', 'assets/BigP.png');
     this.load.image('RAm', 'assets/rampage.png');
     this.load.image('stone', 'assets/stone.png');
-    this.load.image('oxi', 'assets/oxi.png');
+    this.load.image('cube', 'assets/oxi.png');
+    this.load.image('plant', 'assets/plant.png');
+
 
     this.load.spritesheet('dude',
         'assets/dude.png',
@@ -49,8 +52,8 @@ function preload() {
 }
 var platforms;
 var stones;
-var oxi;
-var player;
+var cube;
+var plant;
 
 function create() {
     // Додамо ігровий світ
@@ -61,6 +64,10 @@ function create() {
     platforms = this.physics.add.staticGroup();
     Bigplatforms = this.physics.add.staticGroup();
     stone = this.physics.add.staticGroup();
+    cube = this.physics.add.staticGroup();
+    plant = this.physics.add.staticGroup();
+    
+
 
     // Створимо платформи заздалегідь
     for (var x = 0; x < worldWidth; x = x + 650) {
@@ -83,6 +90,23 @@ function create() {
         var y = Phaser.Math.FloatBetween(0, 1000)
         stone.create(x, y, 'stone').setScale(o).refreshBody();
     }
+
+    for (var x = 0; x < worldWidth; x = x + Phaser.Math.FloatBetween(0, 750)) {
+        var o = 0; o < worldWidth; o = o + Phaser.Math.FloatBetween(0,3)
+        
+
+        var y = Phaser.Math.FloatBetween(0, 1000)
+        cube.create(x, y, 'cube').setScale(o).refreshBody();
+    }
+
+    for (var x = 0; x < worldWidth; x = x + Phaser.Math.FloatBetween(0, 750)) {
+        var o = 0; o < worldWidth; o = o + Phaser.Math.FloatBetween(0,3)
+        
+
+        var y = Phaser.Math.FloatBetween(0, 1000)
+        plant.create(x, 950, 'plant').setScale(o).refreshBody();
+    }
+
     
 
     // Створимо гравця
@@ -122,7 +146,7 @@ function create() {
  
 //ogogog
 
-oxi.create(150, 1008, 'oxi').setScale(1).refreshBody();
+
 
 
     // додамо платформи
@@ -158,6 +182,10 @@ oxi.create(150, 1008, 'oxi').setScale(1).refreshBody();
     Bigplatforms.create(800, 1700, 'BigP').setScale(0.25).refreshBody();
     Bigplatforms.create(1400, 1300, 'BigP').setScale(0.25).refreshBody();
     Bigplatforms.create(900, 1300, 'BigP').setScale(0.5).refreshBody();
+
+    //
+    cube.create(1000, 500, 'cube').setScale(0.5).refreshBody();
+
 
     // гіфка
 
