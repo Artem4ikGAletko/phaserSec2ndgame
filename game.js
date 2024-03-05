@@ -80,24 +80,19 @@ function create() {
         var y = Phaser.Math.FloatBetween(0, 1000)
         platforms.create(x, y, 'ground').setOrigin(1, 3).refreshBody();
         Bigplatforms.create(x, y, 'BigP').setOrigin(0, 0).refreshBody();
-
-    }
-
-    for (var x = 0; x < worldWidth; x = x + Phaser.Math.FloatBetween(0, 750)) {
-        var o = 0; o < worldWidth; o = o + Phaser.Math.FloatBetween(0,3)
+        stone.create(x, y + 100 , 'stone').setScale(o).refreshBody();
         
-
-        var y = Phaser.Math.FloatBetween(0, 1000)
-        stone.create(x, y, 'stone').setScale(o).refreshBody();
     }
+//камінчики
+    
 
-    for (var x = 0; x < worldWidth; x = x + Phaser.Math.FloatBetween(0, 750)) {
-        var o = 0; o < worldWidth; o = o + Phaser.Math.FloatBetween(0,3)
-        
+for (var x = 0; x < worldWidth; x = x + Phaser.Math.FloatBetween(0, 750)) {
+    var o = 0; o < worldWidth; o = o + Phaser.Math.FloatBetween(0,3)
+    
 
-        var y = Phaser.Math.FloatBetween(0, 1000)
-        cube.create(x, y, 'cube').setScale(o).refreshBody();
-    }
+    var y = Phaser.Math.FloatBetween(0, 1000)
+    cube.create(x, y, 'cube').setScale(o).refreshBody();
+}
 
     for (var x = 0; x < worldWidth; x = x + Phaser.Math.FloatBetween(0, 750)) {
         var o = 0; o < worldWidth; o = o + Phaser.Math.FloatBetween(0,3)
