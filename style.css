@@ -1,25 +1,25 @@
 body {
     margin: 0;
-    height: 100vh;           
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 
 }
 
-#game{
+#game {
     position: absolute;
     z-index: -5;
 }
 
-#score{
+#score {
     position: fixed;
     top: 100px;
-left: 100px;
+    left: 100px;
 }
 
-#timer{
+#timer {
     position: fixed;
     top: 100px;
-left: 200px;
+    left: 200px;
 }

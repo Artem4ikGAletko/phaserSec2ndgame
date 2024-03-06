@@ -2,6 +2,8 @@ var config = {
     type: Phaser.AUTO,
     width: 9600,
     height: 1080,
+    parent: game,
+    playerSpeed: 500,
     physics: {
         default: 'arcade',
         arcade: {
@@ -37,6 +39,11 @@ function preload() {
     this.load.image('stone', 'assets/stone.png');
     this.load.image('cube', 'assets/oxi.png');
     this.load.image('plant', 'assets/plant.png');
+    // платформи з 3 ступенів
+    this.load.image('center', 'assets/center.png');
+    this.load.image('left', 'assets/left.png');
+    this.load.image('right', 'assets/right.png');
+
 
 
     this.load.spritesheet('dude',
@@ -56,60 +63,21 @@ var cube;
 var plant;
 
 function create() {
+
+
     // Додамо ігровий світ
-    this.add.tileSprite(0, 0, worldWidth, 1080, "fon+").setOrigin(0, 0);
-    
+    this.add.tileSprite(0, 0, worldWidth, 1080, "fon+")
+        .setOrigin(0, 0)
+        .setDepth(0);
 
-    // Додамо платформи
-    platforms = this.physics.add.staticGroup();
-    Bigplatforms = this.physics.add.staticGroup();
-    stone = this.physics.add.staticGroup();
-    cube = this.physics.add.staticGroup();
-    plant = this.physics.add.staticGroup();
-    
-
-
-    // Створимо платформи заздалегідь
-    for (var x = 0; x < worldWidth; x = x + 650) {
-        platforms.create(x, 1080 - 120, 'ground').setOrigin(0, 0).refreshBody();
-        Bigplatforms.create(x, 1080 - 50, 'BigP').setOrigin(0, 0).refreshBody();
-    }
-
-    // Платформи випадковим чином
-    for (var x = 0; x < worldWidth; x = x + Phaser.Math.FloatBetween(0, 750)) {
-        var y = Phaser.Math.FloatBetween(0, 1000)
-        platforms.create(x, y, 'ground').setOrigin(1, 3).refreshBody();
-        Bigplatforms.create(x, y, 'BigP').setOrigin(0, 0).refreshBody();
-        stone.create(x, y + 100 , 'stone').setScale(o).refreshBody();
-        
-    }
-//камінчики
-    
-
-for (var x = 0; x < worldWidth; x = x + Phaser.Math.FloatBetween(0, 750)) {
-    var o = 0; o < worldWidth; o = o + Phaser.Math.FloatBetween(0,3)
-    
-
-    var y = Phaser.Math.FloatBetween(0, 1000)
-    cube.create(x, y, 'cube').setScale(o).refreshBody();
-}
-
-    for (var x = 0; x < worldWidth; x = x + Phaser.Math.FloatBetween(0, 750)) {
-        var o = 0; o < worldWidth; o = o + Phaser.Math.FloatBetween(0,3)
-        
-
-        var y = Phaser.Math.FloatBetween(0, 1000)
-        plant.create(x, 950, 'plant').setScale(o).refreshBody();
-    }
-
-    
 
     // Створимо гравця
-    player = this.physics.add.sprite(100, 450, 'dude');
-    player.setBounce(0.2);
-    player.setCollideWorldBounds(true);
-    
-    
+    player = this.physics.add.sprite(1000, 450, 'dude');
+    player
+        .setBounce(0.2)
+        .setDepth(5)
+        .setCollideWorldBounds(true);
+
 
     // Додамо камеру
     this.cameras.main.setBounds(0, 0, worldWidth, 1080);
@@ -117,6 +85,90 @@ for (var x = 0; x < worldWidth; x = x + Phaser.Math.FloatBetween(0, 750)) {
 
     // Камера слідкує за гравцем
     this.cameras.main.startFollow(player);
+
+    // Додамо платформи
+    platforms = this.physics.add.staticGroup();
+    Bigplatforms = this.physics.add.staticGroup();
+    stone = this.physics.add.staticGroup();
+    cube = this.physics.add.staticGroup();
+    plant = this.physics.add.staticGroup();
+
+
+
+    // Створимо платформи заздалегідь
+    for (var x = 0; x < worldWidth; x = x + 650) {
+        var y = Phaser.Math.FloatBetween(100, 700)
+        // ліво
+        platforms.create(x, y, 'left')
+            .setOrigin(0, 0)
+            .refreshBody();
+        // центр
+        platforms.create(x + 128, y, 'center')
+            .setOrigin(0, 0)
+            .refreshBody();
+        // право
+        platforms.create(x + 128 * 2, y, 'right')
+            .setOrigin(0, 0)
+            .refreshBody();
+
+        // Bigplatforms.create(x, 1080 - 50, 'BigP').setOrigin(0, 0).refreshBody();
+    }
+
+    // Платформи випадковим чином
+    for (var x = 0; x < worldWidth; x = x + Phaser.Math.FloatBetween(0, 750)) {
+        var y = Phaser.Math.FloatBetween(100, 700)
+
+        Bigplatforms.create(x + 200, y, 'BigP')
+            .setOrigin(0, 0)
+            .refreshBody();
+
+        stone.create(x, y, 'stone')
+            .setScale(o)
+            .refreshBody()
+            .setDepth(Phaser.Math.Between(1, 10));
+
+
+    }
+
+    for (var x = 0; x < worldWidth; x = x + Phaser.Math.FloatBetween(0, 750)) {
+        var y = Phaser.Math.FloatBetween(100, 700)
+
+        Bigplatforms.create(x + 200, 1050, 'BigP')
+            .setOrigin(0, 0)
+            .refreshBody();
+
+
+
+
+    }
+    //камінчики
+
+
+    for (var x = 0; x < worldWidth; x = x + Phaser.Math.FloatBetween(0, 750)) {
+        var o = 0; o < worldWidth; o = o + Phaser.Math.FloatBetween(0, 1)
+
+
+        var y = Phaser.Math.FloatBetween(0, 1000)
+        cube.create(x, y, 'cube')
+            .setScale(o)
+            .refreshBody();
+    }
+
+    for (var x = 0; x < worldWidth; x = x + Phaser.Math.FloatBetween(0, 750)) {
+        var o = 0; o < worldWidth; o = o + Phaser.Math.FloatBetween(0, 3)
+
+
+        var y = Phaser.Math.FloatBetween(0, 1000)
+        plant.create(x, 1000, 'plant')
+            .setScale(o)
+            .refreshBody();
+    }
+
+
+
+
+
+
 
     // Створимо анімації
     this.anims.create({
@@ -131,15 +183,9 @@ for (var x = 0; x < worldWidth; x = x + Phaser.Math.FloatBetween(0, 750)) {
     // Курсор
     cursors = this.input.keyboard.createCursorKeys();
 
-     //cam
-     this.cameras.main.setBounds(0, 0, worldWidth, 1080);
-     this.physics.world.setBounds(0, 0, worldWidth, 1080);
- 
-     //камера слідкує
-     this.cameras.main.startFollow(player);
-     // гравець
- 
-//ogogog
+    
+
+    //ogogog
 
 
 
@@ -147,10 +193,7 @@ for (var x = 0; x < worldWidth; x = x + Phaser.Math.FloatBetween(0, 750)) {
     // додамо платформи
 
 
-    platforms.create(150, 1008, 'ground').setScale(1).refreshBody();
-    platforms.create(400, 1000, 'ground').setScale(2).refreshBody();
-    platforms.create(550, 1020, 'ground')
-    platforms.create(750, 1000, 'ground')
+
 
 
     //Великі Платформи
@@ -189,9 +232,9 @@ for (var x = 0; x < worldWidth; x = x + Phaser.Math.FloatBetween(0, 750)) {
     foon.setCollideWorldBounds(true);
     this.physics.add.collider(foon, platforms);
     this.physics.add.collider(foon, Bigplatforms);
-   
-    
-    
+
+
+
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(player, Bigplatforms);
     // створимо анімації
@@ -254,7 +297,7 @@ for (var x = 0; x < worldWidth; x = x + Phaser.Math.FloatBetween(0, 750)) {
 
     // секундомір
     // Додайте текст для відображення таймера
-    
+
 
 
 
@@ -262,7 +305,7 @@ for (var x = 0; x < worldWidth; x = x + Phaser.Math.FloatBetween(0, 750)) {
 
 function update() {
     //грав кооор дин
-    console.log(player.x)
+    //console.log(player.x)
 
 
     //курсор
@@ -271,12 +314,12 @@ function update() {
 
 
     if (cursors.left.isDown) {
-        player.setVelocityX(-160);
+        player.setVelocityX(-config.playerSpeed);
         player.anims.play('left', true);
 
     }
     else if (cursors.right.isDown) {
-        player.setVelocityX(160);
+        player.setVelocityX(config.playerSpeed);
 
         player.anims.play('right', true);
     }
