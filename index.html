@@ -8,11 +8,20 @@
     <script src="game.js"></script>
     <script src="style.css"></script>
     <style type="text/css">
-
+#myButton {
+            background-image: url('reset.png'); /* Додавання зображення на фон кнопки */
+            width: 300px; /* Ширина кнопки */
+            height: 50px; /* Висота кнопки */
+            background-size: cover; /* Розмір зображення */
+            border: none; /* Видалення рамки */
+            cursor: pointer; /* Курсор при наведенні на кнопку */
+        }
        
     </style>
 </head>
 <body>
+    <button id="myButton">Натисніть мене</button>
+
     <div id="score">
 
     </div>
@@ -24,7 +33,19 @@
     </div>
 
 <script type="text/javascript">
+var myButton = document.getElementById('myButton');
 
+// Додаємо обробник подій для натискання на кнопку
+myButton.addEventListener('click', function() {
+    // Викликаємо функцію перезавантаження гри
+    restartGame();
+});
+
+// Функція для перезавантаження гри
+function restartGame() {
+    // Перезавантаження гри
+    location.reload();
+}
    
 </script>
 

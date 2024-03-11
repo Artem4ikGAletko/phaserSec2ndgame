@@ -24,6 +24,8 @@ var TimerText;
 var worldWidth = 1920 * 2;
 var player
 var reserF
+var myButton = document.getElementById('myButton');
+
 
 
 function preload() {
@@ -44,7 +46,7 @@ function preload() {
     this.load.image('center', 'assets/center.png');
     this.load.image('left', 'assets/left.png');
     this.load.image('right', 'assets/right.png');
-    this.load.image('resetB', 'assets/right.png');
+    this.load.image('resetB', 'assets/resetb.png');
 
 
     this.load.spritesheet('dude',
@@ -170,7 +172,7 @@ function create() {
     }
     //камінчики
 
-
+    
     
 
     for (var x = 0; x < worldWidth; x = x + Phaser.Math.FloatBetween(0, 750)) {
@@ -404,17 +406,11 @@ function hitBomb(player, bomb) {
 
     gameOver = true;
 }
-function resett(player, button){
-    score = 0
-    // Перезавантаження гри
-    document.location.reload();
-}
-    //
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'r') {
-            resett();
-        }
-    });
+
+
+
+
+
 
 
 
