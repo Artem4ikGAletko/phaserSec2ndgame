@@ -21,8 +21,9 @@ var score = 0;
 var scoreText;
 var game = new Phaser.Game(config);
 var TimerText;
-var worldWidth = 9600;
+var worldWidth = 1920 * 2;
 var player
+var reserF
 
 
 function preload() {
@@ -43,7 +44,7 @@ function preload() {
     this.load.image('center', 'assets/center.png');
     this.load.image('left', 'assets/left.png');
     this.load.image('right', 'assets/right.png');
-
+    this.load.image('resetB', 'assets/right.png');
 
 
     this.load.spritesheet('dude',
@@ -92,12 +93,16 @@ function create() {
     stone = this.physics.add.staticGroup();
     cube = this.physics.add.staticGroup();
     plant = this.physics.add.staticGroup();
+//
+   
 
 
 
     // Створимо платформи заздалегідь
     for (var x = 0; x < worldWidth; x = x + 650) {
         var y = Phaser.Math.FloatBetween(100, 700)
+        var o = 0; o < worldWidth; o = o + Phaser.Math.FloatBetween(0, 1)
+       
         // ліво
         platforms.create(x, y, 'left')
             .setOrigin(0, 0)
@@ -110,6 +115,15 @@ function create() {
         platforms.create(x + 128 * 2, y, 'right')
             .setOrigin(0, 0)
             .refreshBody();
+            //
+            cube.create(x, y - 130, 'cube')
+            .setOrigin(0, 0)
+                .setScale(o)
+                .refreshBody();
+                //
+                plant.create(x, y - 130, 'plant')
+                .setOrigin(0,0)
+                    .refreshBody();
 
         // Bigplatforms.create(x, 1080 - 50, 'BigP').setOrigin(0, 0).refreshBody();
     }
@@ -118,9 +132,10 @@ function create() {
     for (var x = 0; x < worldWidth; x = x + Phaser.Math.FloatBetween(0, 750)) {
         var y = Phaser.Math.FloatBetween(100, 700)
 
-        Bigplatforms.create(x + 200, y, 'BigP')
-            .setOrigin(0, 0)
-            .refreshBody();
+        // Bigplatforms.create(x + 200, y + 600, 'BigP')
+        //     .setOrigin(0, 0)
+        //     .refreshBody();
+
 
         stone.create(x, y, 'stone')
             .setScale(o)
@@ -132,36 +147,34 @@ function create() {
 
     for (var x = 0; x < worldWidth; x = x + Phaser.Math.FloatBetween(0, 750)) {
         var y = Phaser.Math.FloatBetween(100, 700)
+        var o = 0; o < worldWidth; o = o + Phaser.Math.FloatBetween(1, 2)
 
-        Bigplatforms.create(x + 200, 1050, 'BigP')
-            .setOrigin(0, 0)
-            .refreshBody();
+        Bigplatforms.create(x, 1050, 'BigP')
+             .setOrigin(0, 0)
+             .refreshBody();
+            
+            
+
+            
+            
+                
 
 
+                var y = Phaser.Math.FloatBetween(0, 1000)
+                plant.create(x, 900, 'plant')
+                .setOrigin(0,0)
+                    .setScale(o)
+                    .refreshBody();
 
 
     }
     //камінчики
 
 
-    for (var x = 0; x < worldWidth; x = x + Phaser.Math.FloatBetween(0, 750)) {
-        var o = 0; o < worldWidth; o = o + Phaser.Math.FloatBetween(0, 1)
-
-
-        var y = Phaser.Math.FloatBetween(0, 1000)
-        cube.create(x, y, 'cube')
-            .setScale(o)
-            .refreshBody();
-    }
+    
 
     for (var x = 0; x < worldWidth; x = x + Phaser.Math.FloatBetween(0, 750)) {
-        var o = 0; o < worldWidth; o = o + Phaser.Math.FloatBetween(0, 3)
-
-
-        var y = Phaser.Math.FloatBetween(0, 1000)
-        plant.create(x, 1000, 'plant')
-            .setScale(o)
-            .refreshBody();
+        
     }
 
 
@@ -198,28 +211,29 @@ function create() {
 
     //Великі Платформи
 
-    Bigplatforms.create(600, 1100, 'BigP').setScale(2).refreshBody();
-    Bigplatforms.create(1400, 1100, 'BigP').setScale(2).refreshBody();
-    Bigplatforms.create(700, 523, 'BigP').setScale(0.5).refreshBody();
-    Bigplatforms.create(1020, 523, 'BigP').setScale(0.5).refreshBody();
-    Bigplatforms.create(1000, 523, 'BigP').setScale(0.5).refreshBody();
-    Bigplatforms.create(200, 700, 'BigP').setScale(0.25).refreshBody();
-    Bigplatforms.create(200, 300, 'BigP').setScale(0.25).refreshBody();
-    Bigplatforms.create(300, 450, 'BigP').setScale(0.25).refreshBody();
-    Bigplatforms.create(1200, 700, 'BigP').setScale(0.25).refreshBody();
-    Bigplatforms.create(1400, 300, 'BigP').setScale(0.25).refreshBody();
-    Bigplatforms.create(1300, 450, 'BigP').setScale(0.25).refreshBody();
-    Bigplatforms.create(800, 700, 'BigP').setScale(0.25).refreshBody();
-    Bigplatforms.create(1400, 370, 'BigP').setScale(0.25).refreshBody();
-    Bigplatforms.create(900, 320, 'BigP').setScale(0.5).refreshBody();
-    Bigplatforms.create(700, 300, 'BigP').setScale(0.25).refreshBody();
-    Bigplatforms.create(1300, 1450, 'BigP').setScale(0.25).refreshBody();
-    Bigplatforms.create(1200, 700, 'BigP').setScale(0.25).refreshBody();
-    Bigplatforms.create(600, 900, 'BigP').setScale(0.25).refreshBody();
-    Bigplatforms.create(1300, 1450, 'BigP').setScale(0.25).refreshBody();
-    Bigplatforms.create(800, 1700, 'BigP').setScale(0.25).refreshBody();
-    Bigplatforms.create(1400, 1300, 'BigP').setScale(0.25).refreshBody();
-    Bigplatforms.create(900, 1300, 'BigP').setScale(0.5).refreshBody();
+    // Bigplatforms.create(600, 1100, 'BigP').setScale(2).refreshBody();
+    // Bigplatforms.create(1400, 1100, 'BigP').setScale(2).refreshBody();
+    // Bigplatforms.create(700, 523, 'BigP').setScale(0.5).refreshBody();
+    // Bigplatforms.create(1020, 523, 'BigP').setScale(0.5).refreshBody();
+    // Bigplatforms.create(1000, 523, 'BigP').setScale(0.5).refreshBody();
+    // Bigplatforms.create(200, 700, 'BigP').setScale(0.25).refreshBody();
+    // Bigplatforms.create(200, 300, 'BigP').setScale(0.25).refreshBody();
+    // Bigplatforms.create(300, 450, 'BigP').setScale(0.25).refreshBody();
+    // Bigplatforms.create(1200, 700, 'BigP').setScale(0.25).refreshBody();
+    // Bigplatforms.create(1400, 300, 'BigP').setScale(0.25).refreshBody();
+    // Bigplatforms.create(1300, 450, 'BigP').setScale(0.25).refreshBody();
+    // Bigplatforms.create(800, 700, 'BigP').setScale(0.25).refreshBody();
+    // Bigplatforms.create(1400, 370, 'BigP').setScale(0.25).refreshBody();
+    // Bigplatforms.create(900, 320, 'BigP').setScale(0.5).refreshBody();
+    // Bigplatforms.create(700, 300, 'BigP').setScale(0.25).refreshBody();
+    // Bigplatforms.create(1300, 1450, 'BigP').setScale(0.25).refreshBody();
+    // Bigplatforms.create(1200, 700, 'BigP').setScale(0.25).refreshBody();
+    // Bigplatforms.create(600, 900, 'BigP').setScale(0.25).refreshBody();
+    // Bigplatforms.create(1300, 1450, 'BigP').setScale(0.25).refreshBody();
+    // Bigplatforms.create(800, 1700, 'BigP').setScale(0.25).refreshBody();
+    // Bigplatforms.create(1400, 1300, 'BigP').setScale(0.25).refreshBody();
+    // Bigplatforms.create(900, 1300, 'BigP').setScale(0.5).refreshBody();
+//
 
     //
     cube.create(1000, 500, 'cube').setScale(0.5).refreshBody();
@@ -264,8 +278,8 @@ function create() {
     // Додали фізику зіркам
     stars = this.physics.add.group({
         key: 'star',
-        repeat: 11,
-        setXY: { x: 12, y: 0, stepX: 70 }
+        repeat: 110,
+        setXY: { x: 202, y: 0, stepX: 70 }
     });
 
     stars.children.iterate(function (child) {
@@ -278,6 +292,7 @@ function create() {
     // Текс рахунку що додає бомби
     scoreText = this.add.text(825, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
     playerName = this.add.text(825, -4, 'Діма Найк', { fontSize: '32px', fill: '#000' });
+    dlayerName = this.add.text(525, -4, 'press key down!', { fontSize: '32px', fill: '#000' });
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(stars, platforms);
     this.physics.add.collider(stars, Bigplatforms);
@@ -335,9 +350,9 @@ function update() {
     }
     if (cursors.down.isDown) { // Перевірка, чи немає bomb
 
-        var x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
+        var x = (player.x < 400) ? Phaser.Math.Between(800, 800) : Phaser.Math.Between(0, 400);
 
-        var bomb = bombs.create(x, 16, 'bomb');
+        var bomb = bombs.create(800, 16, 'bomb');
         bomb.setBounce(1);
         bomb.setScale(3);
         bomb.setCollideWorldBounds(true);
@@ -371,17 +386,7 @@ function collectStar(player, star) {
         bomb.setCollideWorldBounds(true);
         bomb.setVelocity(Phaser.Math.Between(-200, 200), 10);
 
-        var bomb = bombs.create(x, 16, 'bomb');
-        bomb.setBounce(1);
-        bomb.setScale(2);
-        bomb.setCollideWorldBounds(true);
-        bomb.setVelocity(Phaser.Math.Between(-200, 200), 10);
-
-        var bomb = bombs.create(x, 16, 'bomb');
-        bomb.setBounce(1);
-        bomb.setScale(2);
-        bomb.setCollideWorldBounds(true);
-        bomb.setVelocity(Phaser.Math.Between(-200, 200), 10);
+        
 
     }
 }
@@ -399,6 +404,18 @@ function hitBomb(player, bomb) {
 
     gameOver = true;
 }
+function resett(player, button){
+    score = 0
+    // Перезавантаження гри
+    document.location.reload();
+}
+    //
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'r') {
+            resett();
+        }
+    });
+
 
 
 
