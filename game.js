@@ -25,6 +25,9 @@ var worldWidth = 1920 * 2;
 var player
 var reserF
 var myButton = document.getElementById('myButton');
+var live = 3;
+
+
 
 
 
@@ -289,10 +292,18 @@ function create() {
         child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
 
     });
+// lives
 
 
     // Текс рахунку що додає бомби
-    scoreText = this.add.text(825, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+    scoreText = this.add.text(825, 16, 'score: 0', { fontSize: '32px', fill: '#000' })
+    .setOrigin(0, 0)
+    .setScrollFactor(0);
+    liveText = this.add.text(1600, 100, showLive(), { fontSize: '40px', fill: '#000' })
+    .setOrigin(0, 0)
+    .setScrollFactor(0);
+
+
     playerName = this.add.text(825, -4, 'Діма Найк', { fontSize: '32px', fill: '#000' });
     dlayerName = this.add.text(525, -4, 'press key down!', { fontSize: '32px', fill: '#000' });
     this.physics.add.collider(player, platforms);
@@ -393,18 +404,30 @@ function collectStar(player, star) {
     }
 }
 
+function showLive(){
+    var lifeLine = ''
 
+    for(var i = 0; i < live; i++ ){
+    lifeLine += '😎'
+console.log(live)
+}
+return lifeLine
+}
 
 
 // бомби
 function hitBomb(player, bomb) {
-    this.physics.pause();
+    if (live == 1)this.physics.pause();
 
     player.setTint(0xff0000);
+live -= 1
+liveText.setText(showLive());
 
+console.log('boom')
     player.anims.play('turn');
 
-    gameOver = true;
+    if (live == 0) gameOver = true;
+    
 }
 
 
