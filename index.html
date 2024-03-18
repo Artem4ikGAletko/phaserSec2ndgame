@@ -1,6 +1,7 @@
-<!doctype html> 
-<html lang="en"> 
-<head> 
+<!doctype html>
+<html lang="en">
+
+<head>
     <meta charset="UTF-8" />
     <title>Галетко Артем phazersec2ndGAme</title>
     <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
@@ -8,17 +9,23 @@
     <script src="game.js"></script>
     <script src="style.css"></script>
     <style type="text/css">
-#myButton {
-            background-image: url('reset.png'); /* Додавання зображення на фон кнопки */
-            width: 300px; /* Ширина кнопки */
-            height: 50px; /* Висота кнопки */
-            background-size: cover; /* Розмір зображення */
-            border: none; /* Видалення рамки */
-            cursor: pointer; /* Курсор при наведенні на кнопку */
+        #myButton {
+            background-image: url('reset.png');
+            /* Додавання зображення на фон кнопки */
+            width: 300px;
+            /* Ширина кнопки */
+            height: 50px;
+            /* Висота кнопки */
+            background-size: cover;
+            /* Розмір зображення */
+            border: none;
+            /* Видалення рамки */
+            cursor: pointer;
+            /* Курсор при наведенні на кнопку */
         }
-       
     </style>
 </head>
+
 <body>
     <button id="myButton">Натисніть мене</button>
 
@@ -26,28 +33,29 @@
 
     </div>
     <div id="game">
-        
+
     </div>
     <div id="timer">
-        
+
     </div>
 
-<script type="text/javascript">
-var myButton = document.getElementById('myButton');
+    <script type="text/javascript">
+        var myButton = document.getElementById('myButton');
 
-// Додаємо обробник подій для натискання на кнопку
-myButton.addEventListener('click', function() {
-    // Викликаємо функцію перезавантаження гри
-    restartGame();
-});
+        // Додаємо обробник подій для натискання на кнопку
+        myButton.addEventListener('click', function () {
+            // Викликаємо функцію перезавантаження гри
+            restartGame();
+        });
 
-// Функція для перезавантаження гри
-function restartGame() {
-    // Перезавантаження гри
-    location.reload();
-}
-   
-</script>
+        // Функція для перезавантаження гри
+        function restartGame() {
+            // Перезавантаження гри
+            location.reload();
+        }
+
+    </script>
 
 </body>
+
 </html>

@@ -7,7 +7,7 @@ var config = {
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 200 },
+            gravity: { y: 100 },
             debug: true
         }
     },
@@ -26,6 +26,8 @@ var player
 var reserF
 var myButton = document.getElementById('myButton');
 var live = 3;
+var enemy;
+var heart;
 
 
 
@@ -50,8 +52,13 @@ function preload() {
     this.load.image('left', 'assets/left.png');
     this.load.image('right', 'assets/right.png');
     this.load.image('resetB', 'assets/resetb.png');
+    this.load.image('heart', 'assets/heart.png');
 
 
+    this.load.spritesheet('enemy',
+    'assets/enemy.png',
+    { frameWidth: 32, frameHeight: 48 }
+);
     this.load.spritesheet('dude',
         'assets/dude.png',
         { frameWidth: 32, frameHeight: 48 }
@@ -82,7 +89,8 @@ function create() {
     player
         .setBounce(0.2)
         .setDepth(5)
-        .setCollideWorldBounds(true);
+        .setCollideWorldBounds(true)
+        .setScale(3);
 
 
     // Додамо камеру
@@ -98,14 +106,26 @@ function create() {
     stone = this.physics.add.staticGroup();
     cube = this.physics.add.staticGroup();
     plant = this.physics.add.staticGroup();
-//
-   
+    heart = this.physics.add.staticGroup();
+    // Створимо ворога
+    enemy = this.physics.add.sprite(1400, 450, 'enemy');
+    enemy
+        .setBounce(0.2)
+        .setDepth(5)
+        .setCollideWorldBounds(true)
+        .setScale(3);
+
+        this.physics.add.collider(enemy, platforms);
+    this.physics.add.collider(enemy, Bigplatforms);
+    this.physics.add.collider(enemy, player);
+    enemy.setCollideWorldBounds(true);
+
 
 
 
     // Створимо платформи заздалегідь
     for (var x = 0; x < worldWidth; x = x + 650) {
-        var y = Phaser.Math.FloatBetween(100, 700)
+        var y = Phaser.Math.FloatBetween(100, 900)
         var o = 0; o < worldWidth; o = o + Phaser.Math.FloatBetween(0, 1)
        
         // ліво
@@ -173,8 +193,10 @@ function create() {
 
 
     }
-    //камінчики
 
+    
+    //камінчики
+    this.physics.add.collider(player, enemy, hitenemy, null, this);
     
     
 
@@ -237,10 +259,11 @@ function create() {
     // Bigplatforms.create(1300, 1450, 'BigP').setScale(0.25).refreshBody();
     // Bigplatforms.create(800, 1700, 'BigP').setScale(0.25).refreshBody();
     // Bigplatforms.create(1400, 1300, 'BigP').setScale(0.25).refreshBody();
-    // Bigplatforms.create(900, 1300, 'BigP').setScale(0.5).refreshBody();
+     heart.create(1000, 950, 'heart').setScale(0.5).refreshBody();
 //
 
-    //
+    
+
     cube.create(1000, 500, 'cube').setScale(0.5).refreshBody();
 
 
@@ -286,6 +309,20 @@ function create() {
         repeat: 110,
         setXY: { x: 202, y: 0, stepX: 70 }
     });
+// enemy anim
+    this.anims.create({
+        key: 'left1',
+        frames: this.anims.generateFrameNumbers('enemy', { start: 0, end: 3 }),
+        frameRate: 10,
+        repeat: -1
+    });
+
+    this.anims.create({
+        key: 'left2',
+        frames: this.anims.generateFrameNumbers('enemy', { start: 5, end: 8 }),
+        frameRate: 10,
+        repeat: -1
+    });
 
     stars.children.iterate(function (child) {
 
@@ -321,7 +358,10 @@ function create() {
     this.physics.add.collider(player, bombs, hitBomb, null, this);
 
     //
-
+    
+    this.physics.add.collider(heart, player);
+    this.physics.add.collider(player, heart, heal, null, this);
+    heart = this.physics.add.group();
 
     // секундомір
     // Додайте текст для відображення таймера
@@ -344,12 +384,14 @@ function update() {
     if (cursors.left.isDown) {
         player.setVelocityX(-config.playerSpeed);
         player.anims.play('left', true);
-
+        enemy.anims.play('left', true);
+        enemy.setVelocityX(-650);
     }
     else if (cursors.right.isDown) {
         player.setVelocityX(config.playerSpeed);
-
         player.anims.play('right', true);
+        enemy.anims.play('right', true);
+        enemy.setVelocityX(650);
     }
     else {
         player.setVelocityX(0);
@@ -370,6 +412,15 @@ function update() {
         bomb.setScale(3);
         bomb.setCollideWorldBounds(true);
         bomb.setVelocity(Phaser.Math.Between(-200, 200), 10);
+        
+        var bomb = bombs.create(800, 16, 'enemy');
+        bomb.setBounce(1);
+        bomb.setScale(2);
+        bomb.setCollideWorldBounds(true);
+        bomb.setVelocity(Phaser.Math.Between(-200, 200), 10);
+        bomb.anims.play('left1', true);
+        bomb.anims.play('left2', true);
+        
     }
 
 }
@@ -398,6 +449,8 @@ function collectStar(player, star) {
         bomb.setScale(2);
         bomb.setCollideWorldBounds(true);
         bomb.setVelocity(Phaser.Math.Between(-200, 200), 10);
+        
+        
 
         
 
@@ -429,7 +482,26 @@ console.log('boom')
     if (live == 0) gameOver = true;
     
 }
+//
+function hitenemy(player, enemy) {
 
+    var bomb = bombs.create(x, 16, 'bomb');
+        bomb.setBounce(1);
+        bomb.setScale(2);
+        bomb.setCollideWorldBounds(true);
+        bomb.setVelocity(Phaser.Math.Between(-200, 200), 10);
+
+}
+function heal(player, bomb) {
+    live +=1
+    liveText.setText(showLive());
+    
+}
+
+        
+        
+
+        
 
 
 
