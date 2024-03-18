@@ -259,7 +259,7 @@ function create() {
     // Bigplatforms.create(1300, 1450, 'BigP').setScale(0.25).refreshBody();
     // Bigplatforms.create(800, 1700, 'BigP').setScale(0.25).refreshBody();
     // Bigplatforms.create(1400, 1300, 'BigP').setScale(0.25).refreshBody();
-     heart.create(1000, 950, 'heart').setScale(0.5).refreshBody();
+     heart.create(1000, 800, 'heart').setScale(0.5).refreshBody();
 //
 
     
@@ -359,7 +359,7 @@ function create() {
 
     //
     
-    this.physics.add.collider(heart, player);
+    
     this.physics.add.collider(player, heart, heal, null, this);
     heart = this.physics.add.group();
 
@@ -495,6 +495,7 @@ function hitenemy(player, enemy) {
 function heal(player, bomb) {
     live +=1
     liveText.setText(showLive());
+   
     
 }
 
