@@ -382,10 +382,13 @@ function update() {
 
 
     if (cursors.left.isDown) {
+
         player.setVelocityX(-config.playerSpeed);
         player.anims.play('left', true);
         enemy.anims.play('left', true);
         enemy.setVelocityX(-650);
+        bombs.create(x, 16, 'bomb');
+        
     }
     else if (cursors.right.isDown) {
         player.setVelocityX(config.playerSpeed);
@@ -423,6 +426,15 @@ function update() {
         
     }
 
+
+    if (Phaser.Input.Keyboard.JustDown(cursors.space)) {
+        // Створення бомби від гравця
+        var bomb = bombs.create(player.x, player.y, 'bomb');
+        bomb.setBounce(1);
+        bomb.setScale(3);
+        bomb.setCollideWorldBounds(true);
+        bomb.setVelocity(Phaser.Math.Between(-200, 200), -300); // Задайте потрібну швидкість вистрілу
+    }
 }
 // Оновлення тексту таймера
 
