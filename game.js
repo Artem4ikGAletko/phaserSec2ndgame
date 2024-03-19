@@ -53,7 +53,7 @@ function preload() {
     this.load.image('right', 'assets/right.png');
     this.load.image('resetB', 'assets/resetb.png');
     this.load.image('heart', 'assets/heart.png');
-
+    this.load.image('bb1', 'assets/BB.png');
 
     this.load.spritesheet('enemy',
     'assets/enemy.png',
@@ -410,7 +410,7 @@ function update() {
 
         var x = (player.x < 400) ? Phaser.Math.Between(800, 800) : Phaser.Math.Between(0, 400);
 
-        var bomb = bombs.create(800, 16, 'bomb');
+        var bomb = bombs.create(1400, 16, 'bomb');
         bomb.setBounce(1);
         bomb.setScale(3);
         bomb.setCollideWorldBounds(true);
@@ -429,7 +429,8 @@ function update() {
 
     if (Phaser.Input.Keyboard.JustDown(cursors.space)) {
         // Створення бомби від гравця
-        var bomb = bombs.create(player.x, player.y, 'bomb');
+        var bomb = bombs.create(player.x, player.y, 'bb1');
+        bomb.setScale(0.25);
         bomb.setBounce(1);
         bomb.setScale(3);
         bomb.setCollideWorldBounds(true);
