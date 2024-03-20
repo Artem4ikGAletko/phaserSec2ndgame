@@ -108,19 +108,37 @@ function create() {
     plant = this.physics.add.staticGroup();
     heart = this.physics.add.staticGroup();
     // Створимо ворога
-    enemy = this.physics.add.sprite(1400, 450, 'enemy');
-    enemy
-        .setBounce(0.2)
-        .setDepth(5)
-        .setCollideWorldBounds(true)
-        .setScale(3);
+    //enemy = this.physics.add.sprite(1400, 450, 'enemy');
+    //enemy
+        //.setBounce(0.2)
+        //.setDepth(5)
+        //.setCollideWorldBounds(true)
+        //.setScale(3);
 
-        this.physics.add.collider(enemy, platforms);
-    this.physics.add.collider(enemy, Bigplatforms);
-    this.physics.add.collider(enemy, player);
-    enemy.setCollideWorldBounds(true);
+       // this.physics.add.collider(enemy, platforms);
+    //this.physics.add.collider(enemy, Bigplatforms);
+    //this.physics.add.collider(enemy, player);
+    //enemy.setCollideWorldBounds(true);
 
+enemy= this.physics.add.group({
+    key: 'enemy',
+    repeat: 2,
+    setXY: { x: 1400, y: 1000 - 150, stepX: Phaser.Math.FloatBetween(300, 500) }
+});
 
+enemy.children.iterate(function (child){
+    child.setCollideWorldBounds(true)
+    .setVelocityX(Phaser.Math.FloatBetween(-500, 500))
+});
+//
+this.physics.add.collider(platforms, enemy);
+this.physics.add.collider(Bigplatforms, enemy);
+
+this.physics.add.collider(player, enemy, () => {
+    player.x = player.x + Phaser.Math.FloatBetween(-200, 200);
+    player.y = player.y + Phaser.Math.FloatBetween(-200, 400);
+    
+}, null, this);
 
 
     // Створимо платформи заздалегідь
@@ -259,7 +277,7 @@ function create() {
     // Bigplatforms.create(1300, 1450, 'BigP').setScale(0.25).refreshBody();
     // Bigplatforms.create(800, 1700, 'BigP').setScale(0.25).refreshBody();
     // Bigplatforms.create(1400, 1300, 'BigP').setScale(0.25).refreshBody();
-     heart.create(1000, 800, 'heart').setScale(0.5).refreshBody();
+     heart.create(1400, 800, 'heart').setScale(0.5).refreshBody();
 //
 
     
@@ -374,7 +392,11 @@ function create() {
 function update() {
     //грав кооор дин
     //console.log(player.x)
-
+enemy.children.iterate((child) => {
+    if (Math.random() < 0.05) {
+        child.setVelocityX(Phaser.Math.FloatBetween(-500, 500))
+    }
+})
 
     //курсор
     cursors = this.input.keyboard.createCursorKeys();
@@ -385,16 +407,13 @@ function update() {
 
         player.setVelocityX(-config.playerSpeed);
         player.anims.play('left', true);
-        enemy.anims.play('left', true);
-        enemy.setVelocityX(-650);
-        bombs.create(x, 16, 'bomb');
+        
         
     }
     else if (cursors.right.isDown) {
         player.setVelocityX(config.playerSpeed);
         player.anims.play('right', true);
-        enemy.anims.play('right', true);
-        enemy.setVelocityX(650);
+        
     }
     else {
         player.setVelocityX(0);
@@ -512,7 +531,7 @@ function heal(player, bomb) {
     
 }
 
-        
+       
         
 
         
