@@ -129,6 +129,7 @@ enemy= this.physics.add.group({
 enemy.children.iterate(function (child){
     child.setCollideWorldBounds(true)
     .setVelocityX(Phaser.Math.FloatBetween(-500, 500))
+    .setScale(3)
 });
 //
 this.physics.add.collider(platforms, enemy);
@@ -136,7 +137,7 @@ this.physics.add.collider(Bigplatforms, enemy);
 
 this.physics.add.collider(player, enemy, () => {
     player.x = player.x + Phaser.Math.FloatBetween(-200, 200);
-    player.y = player.y + Phaser.Math.FloatBetween(-200, 400);
+    player.y = player.y + Phaser.Math.FloatBetween(0, 0);
     
 }, null, this);
 
@@ -324,8 +325,8 @@ this.physics.add.collider(player, enemy, () => {
     // Додали фізику зіркам
     stars = this.physics.add.group({
         key: 'star',
-        repeat: 110,
-        setXY: { x: 202, y: 0, stepX: 70 }
+        repeat: 20,
+        setXY: { x: 402, y: 0, stepX: 150 }
     });
 // enemy anim
     this.anims.create({
@@ -493,7 +494,7 @@ function showLive(){
     var lifeLine = ''
 
     for(var i = 0; i < live; i++ ){
-    lifeLine += '😎'
+    lifeLine += '✌'
 console.log(live)
 }
 return lifeLine
