@@ -257,27 +257,7 @@ this.physics.add.collider(player, enemy, () => {
 
     //Великі Платформи
 
-    // Bigplatforms.create(600, 1100, 'BigP').setScale(2).refreshBody();
-    // Bigplatforms.create(1400, 1100, 'BigP').setScale(2).refreshBody();
-    // Bigplatforms.create(700, 523, 'BigP').setScale(0.5).refreshBody();
-    // Bigplatforms.create(1020, 523, 'BigP').setScale(0.5).refreshBody();
-    // Bigplatforms.create(1000, 523, 'BigP').setScale(0.5).refreshBody();
-    // Bigplatforms.create(200, 700, 'BigP').setScale(0.25).refreshBody();
-    // Bigplatforms.create(200, 300, 'BigP').setScale(0.25).refreshBody();
-    // Bigplatforms.create(300, 450, 'BigP').setScale(0.25).refreshBody();
-    // Bigplatforms.create(1200, 700, 'BigP').setScale(0.25).refreshBody();
-    // Bigplatforms.create(1400, 300, 'BigP').setScale(0.25).refreshBody();
-    // Bigplatforms.create(1300, 450, 'BigP').setScale(0.25).refreshBody();
-    // Bigplatforms.create(800, 700, 'BigP').setScale(0.25).refreshBody();
-    // Bigplatforms.create(1400, 370, 'BigP').setScale(0.25).refreshBody();
-    // Bigplatforms.create(900, 320, 'BigP').setScale(0.5).refreshBody();
-    // Bigplatforms.create(700, 300, 'BigP').setScale(0.25).refreshBody();
-    // Bigplatforms.create(1300, 1450, 'BigP').setScale(0.25).refreshBody();
-    // Bigplatforms.create(1200, 700, 'BigP').setScale(0.25).refreshBody();
-    // Bigplatforms.create(600, 900, 'BigP').setScale(0.25).refreshBody();
-    // Bigplatforms.create(1300, 1450, 'BigP').setScale(0.25).refreshBody();
-    // Bigplatforms.create(800, 1700, 'BigP').setScale(0.25).refreshBody();
-    // Bigplatforms.create(1400, 1300, 'BigP').setScale(0.25).refreshBody();
+    
      heart.create(1400, 800, 'heart').setScale(0.5).refreshBody();
 //
 
